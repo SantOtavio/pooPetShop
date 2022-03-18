@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Bovino extends Animal {
@@ -20,7 +20,14 @@ public class Bovino extends Animal {
     }
 
     public static void removeBovin(String gta) {
-//        for (int i = 0)
+        for (int i = 0 ; i < Bovino.bovinList.size() ; i++){
+            if(Bovino.bovinList.get(i).getGta().equalsIgnoreCase(gta)){
+                Bovino.bovinList.remove(i);
+            } else{
+                JOptionPane.showMessageDialog(null , "Gta inserido é invalido");
+                Main.principalMenu();
+            }
+        }
     }
 
     public int getQtdArroba() {

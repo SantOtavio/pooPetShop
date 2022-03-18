@@ -8,7 +8,7 @@ public class Main {
         principalMenu();
     }
 
-    private static void principalMenu() {
+    public static void principalMenu() {
         int choose = Integer.parseInt(JOptionPane.showInputDialog(null, "+++++MENU PETSHOP+++++" +
                 "\n1 - Cadastrar animal" +
                 "\n2 - Listar animais" +
@@ -57,9 +57,87 @@ public class Main {
     }
 
     private static void editAnimals() {
+        int choose = Integer.parseInt(JOptionPane.showInputDialog(null , "+++++MENU EDITAR+++++" +
+                "\n1 - Bovino" +
+                "\n2 - Cachorro"));
+
+        editAnimalsMain(choose);
+    }
+
+    private static void editAnimalsMain(int choose) {
+        if (choose == 1){
+            bovinEdit();
+        } else if(choose == 2){
+            dogEdit();
+        } else {
+            JOptionPane.showMessageDialog(null , "Numero inserido de forma incorreta!");
+            editAnimals();
+        }
+    }
+
+    private static void dogEdit() {
+        int choose = Integer.parseInt(JOptionPane.showInputDialog(null , "+++++MENU EDICAO CACHORRO+++++" +
+                "\n1 - Um atributo" +
+                "\n2 - Todos os atributos"));
+
+        switch (choose){
+            case 1:
+            case 2:
+                dogEditMain(choose);
+                dogEditMain(choose);
+                break;
+        }
+    }
+
+    int peso;
+    boolean tomouVacina;
+    String corOlho;
+    int idAnimal;
+
+    private static void dogEditMain(int choose) {
+        int idAnimal = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira o id do animal"));
+        if (choose == 1){
+            choose = Integer.parseInt(JOptionPane.showInputDialog(null , "++++ESCOLHA ATRIBUTO+++++" +
+                    "\n1 - Peso" +
+                    "\n2 - Tomou a Vacina?" +
+                    "\n3 - Cor do olho" +
+                    "\n4 - Id do animal"));
+            switch (choose){
+                case 1:
+                    int newPeso = Integer.parseInt(JOptionPane.showInputDialog(null , "Insira o novo peso"));
+                    Cachorro.listDogs.get(idAnimal).setPeso(newPeso);
+                    break;
+                case 2:
+                    boolean tomouvacinaNew = Boolean.parseBoolean(JOptionPane.showInputDialog(null , "Insira o novo valor para tomou vacina?"));
+                    Cachorro.listDogs.get(idAnimal).setTomouVacina(tomouvacinaNew);
+                    break;
+                case 3:
+                    String cordoolhonew = JOptionPane.showInputDialog(null , "Insira a cor do olho");
+                    Cachorro.listDogs.get(idAnimal).setCorOlho(cordoolhonew);
+                    break;
+                case 4:
+                    int newid = Integer.parseInt(JOptionPane.showInputDialog(null , "Insira um novo id"));
+                    Cachorro.listDogs.get(idAnimal).setIdAnimal(newid);
+                    break;
+            }
+        } else if (choose == 2){
+
+        } else {
+            JOptionPane.showMessageDialog(null , "Número inserido foi errado!");
+            dogEdit();
+        }
+    }
+
+    private static void bovinEdit() {
     }
 
     private static void listAnimals() {
+        for (int i = 0 ; i < Cachorro.listDogs.size() ; i++){
+            JOptionPane.showMessageDialog(null , Cachorro.listDogs.get(i).getNome() + Cachorro.listDogs.get(i).getIdAnimal() + Cachorro.listDogs.get(i).getRaça());
+        }
+        for (int i = 0 ; i < Bovino.bovinList.size() ; i++){
+            JOptionPane.showMessageDialog(null , Bovino.bovinList.get(i).getNome() + Bovino.bovinList.get(i).getGta() + Bovino.bovinList.get(i).getRaça());
+        }
     }
 
     private static void registerAnimal() {
