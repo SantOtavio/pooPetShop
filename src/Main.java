@@ -1,8 +1,9 @@
 import javax.swing.*;
+import java.net.Inet4Address;
 import java.util.Scanner;
 
 public class Main {
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         principalMenu();
@@ -13,7 +14,8 @@ public class Main {
                 "\n1 - Cadastrar animal" +
                 "\n2 - Listar animais" +
                 "\n3 - Editar animais" +
-                "\n4 - Remover animais"));
+                "\n4 - Remover animais" +
+                "\n5 - Vender animais"));
 
         switch (choose){
             case 1:
@@ -27,6 +29,24 @@ public class Main {
                 break;
             case 4:
                 removeAnimals();
+                break;
+            case 5:
+                sellAnimal();
+                break;
+        }
+    }
+
+    private static void sellAnimal() {
+        int choose = Integer.parseInt(JOptionPane.showInputDialog(null , "1 - Cachorro 2 - Bovino"));
+
+        switch (choose){
+            case 1:
+                int idAnimal = Integer.parseInt(JOptionPane.showInputDialog(null , "Insira o id do animal"));
+                Cachorro.sellDog(idAnimal);
+                break;
+            case 2:
+                String gta = JOptionPane.showInputDialog(null , "Insira o gta do animal");
+                Bovino.sellBovin(gta);
                 break;
         }
     }
@@ -132,12 +152,26 @@ public class Main {
     }
 
     private static void listAnimals() {
-        for (int i = 0 ; i < Cachorro.listDogs.size() ; i++){
-            JOptionPane.showMessageDialog(null , Cachorro.listDogs.get(i).getNome() + Cachorro.listDogs.get(i).getIdAnimal() + Cachorro.listDogs.get(i).getRaça());
+        int choose = Integer.parseInt(JOptionPane.showInputDialog(null , "+++++MENU LISTAGEM+++++" +
+                "\n1 - Animais em estoque" +
+                "\n2 - Animais vendidos"));
+
+        if (choose == 1){
+            for (int i = 0 ; i < Cachorro.listDogs.size() ; i++){
+                JOptionPane.showMessageDialog(null , Cachorro.listDogs.get(i).getNome() + Cachorro.listDogs.get(i).getIdAnimal() + Cachorro.listDogs.get(i).getRaça());
+            }
+            for (int i = 0 ; i < Bovino.bovinList.size() ; i++){
+                JOptionPane.showMessageDialog(null , Bovino.bovinList.get(i).getNome() + Bovino.bovinList.get(i).getGta() + Bovino.bovinList.get(i).getRaça());
+            }
+        } else if (choose == 2){
+            for (int i = 0 ; i < Cachorro.listDogs.size() ; i++){
+                JOptionPane.showMessageDialog(null , Cachorro.sellDogs.get(i).getIdAnimal());
+            }
+            for (int i = 0 ; i < Bovino.bovinList.size() ; i++){
+                JOptionPane.showMessageDialog(null , Bovino.sellBovinList.get(i).getGta());
+            }
         }
-        for (int i = 0 ; i < Bovino.bovinList.size() ; i++){
-            JOptionPane.showMessageDialog(null , Bovino.bovinList.get(i).getNome() + Bovino.bovinList.get(i).getGta() + Bovino.bovinList.get(i).getRaça());
-        }
+
     }
 
     private static void registerAnimal() {
@@ -168,7 +202,7 @@ public class Main {
         gta = JOptionPane.showInputDialog(null, "Insira o gta do animal");
 
         Bovino.registerBovin(nome, idade, tipo, raca, qtdArroba, fazenda, gta);
-
+        Main.principalMenu();
     }
 
     private static void registerDog(String nome, int idade, String tipo, String raca) {
@@ -183,5 +217,6 @@ public class Main {
         corOlho = JOptionPane.showInputDialog(null, "Qual a cor do olho do animal");
 
         Cachorro.registerDog(nome, tipo, raca, idade, idAnimal, peso, tomouVacina, corOlho);
+        Main.principalMenu();
     }
 }
